@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo管理アプリ</title>
+    <link href="/src/main/resources/static/style.css" rel="stylesheet">
+</head>
+<body>
+
+	<h1>TODO管理</h1>
+
+    <!-- TODO追加フォーム -->
+    <section class="form-container">
+        <form>
+            内容：<input type="text" size="40">
+            <br>
+            優先度：
+            <input type="radio" name="grade">高い
+            <input type="radio" name="grade">普通
+            <input type="radio" name="grade">低い
+            <br>
+            期限：
+            <input type="date">
+            <button class="add">追加</button>
+        </form>
+    </section>
+
+    <section class="main-container">
+    
+        <!-- 完了待ちTODO一覧 -->
+        <div class="list">
+            <h3>完了待ち一覧</h3>
+            <br>
+            <hr class="hr-style1">
+            <ul>
+                <li>
+                    内容：ダミー
+                    <br>
+                    優先度：ダミー
+                    <br>
+                    期限：ダミー
+                    <br>
+                    <button class="done">完了</button>
+                    <button>削除</button>
+                    <hr class="hr-style2">
+                </li>
+                <li>
+                    内容：ダミー
+                    <br>
+                    優先度：ダミー
+                    <br>
+                    期限：ダミー
+                    <br>
+                    <button class="done">完了</button>
+                    <button>削除</button>
+                    <hr class="hr-style2">
+                </li>
+            </ul>
+        </div>
+
+        <!-- 完了待ちTODO一覧 -->
+        <div class="list">
+            <h3>完了一覧</h3>
+            <br>
+            <hr class="hr-style1">
+            <ul>
+                <li>
+                    内容：ダミー
+                    <br>
+                    完了日：ダミー
+                    <br>
+                    <button>削除</button>
+                    <hr class="hr-style2">
+                </li>
+            </ul>
+        </div>
+
+    </section>
+
+    <!-- <script src="./calc_main.js"></script> -->
+</body>
+</html>
