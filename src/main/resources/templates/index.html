@@ -5,7 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo管理アプリ</title>
-    <link href="/src/main/resources/static/style.css" th:href="@{/css/style.css}" rel="stylesheet">
+    <link href="/src/main/resources/static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/locale/ja.js"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="/src/main/resources/static/js/add-todo.js"　th:src="@{/js/add-todo.js}"></script>
 </head>
 <body>
 
@@ -34,30 +38,7 @@
             <h3>完了待ち一覧</h3>
             <br>
             <hr class="hr-style1">
-            <ul>
-                <li>
-                    内容：ダミー
-                    <br>
-                    優先度：ダミー
-                    <br>
-                    期限：ダミー
-                    <br>
-                    <button class="done">完了</button>
-                    <button>削除</button>
-                    <hr class="hr-style2">
-                </li>
-                <li>
-                    内容：ダミー
-                    <br>
-                    優先度：ダミー
-                    <br>
-                    期限：ダミー
-                    <br>
-                    <button class="done">完了</button>
-                    <button>削除</button>
-                    <hr class="hr-style2">
-                </li>
-            </ul>
+            <ul id="todoList"></ul>
         </div>
 
         <!-- 完了待ちTODO一覧 -->
@@ -65,21 +46,10 @@
             <h3>完了一覧</h3>
             <br>
             <hr class="hr-style1">
-            <ul>
-                <li>
-                    内容：ダミー
-                    <br>
-                    完了日：ダミー
-                    <br>
-                    <button>削除</button>
-                    <hr class="hr-style2">
-                </li>
-            </ul>
+            <ul id="finishList"></ul>
         </div>
 
     </section>
-
-	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script th:src="@{/js/add-todo.js}"></script>
+	
 </body>
 </html>

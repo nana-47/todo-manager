@@ -1,5 +1,8 @@
 package com.example.dao;
 
+import java.util.Date;
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.example.domain.Todo;
@@ -23,7 +26,7 @@ public interface TodoMapper {
 	 * @return todo
 	 * 
 	 */
-	Todo findByTodo();
+	List<Todo> findByTodo();
 
 	/**
 	 * 完了済みTODOの一覧取得
@@ -32,7 +35,7 @@ public interface TodoMapper {
 	 * @return todo
 	 * 
 	 */
-	Todo findByFinishedTodo();
+	List<Todo> findByFinishedTodo();
 
 	/**
 	 * TODOの完了日更新
@@ -41,7 +44,7 @@ public interface TodoMapper {
 	 * @return
 	 * 
 	 */
-	void updateTodo();
+	void updateTodo(Integer id, Date finishDate);
 
 	/**
 	 * TODO情報の削除
@@ -50,6 +53,6 @@ public interface TodoMapper {
 	 * @return
 	 * 
 	 */
-	void deleteTodo();
+	void deleteTodo(Integer id);
 
 }
