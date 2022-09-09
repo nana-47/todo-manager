@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo管理アプリ</title>
-    <link href="/src/main/resources/static/style.css" rel="stylesheet">
+    <link href="/src/main/resources/static/style.css" th:href="@{/css/style.css}" rel="stylesheet">
 </head>
 <body>
 
@@ -13,17 +13,17 @@
 
     <!-- TODO追加フォーム -->
     <section class="form-container">
-        <form>
-            内容：<input type="text" size="40">
+        <form name="addForm">
+            内容：<input type="text" size="40" name="todoText">
             <br>
             優先度：
-            <input type="radio" name="grade">高い
-            <input type="radio" name="grade">普通
-            <input type="radio" name="grade">低い
+            <input type="radio" name="grade" value="高い">高い
+            <input type="radio" name="grade" value="普通">普通
+            <input type="radio" name="grade" value="低い">低い
             <br>
             期限：
-            <input type="date">
-            <button class="add">追加</button>
+            <input type="date" name="limitDate">
+            <button id="add-btn" class="add" type="button">追加</button>
         </form>
     </section>
 
@@ -79,6 +79,7 @@
 
     </section>
 
-    <!-- <script src="./calc_main.js"></script> -->
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script th:src="@{/js/add-todo.js}"></script>
 </body>
 </html>

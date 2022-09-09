@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dao.TodoMapper">
+	<insert id="insertTodo" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO todos (todo_text,grade,limit_date,finish_date) VALUES (#{todoText},#{grade},#{limitDate},#{finishDate})
+	</insert>
+	<select id="findByTodo" resultType="com.example.domain.Todo">
+		SELECT id,todo_text,grade,limit_date,finish_date FROM todos WHERE finish_date='9999-99-99'
+	</select>
+	<select id="findByFinishedTodo" resultType="com.example.domain.Todo">
+		SELECT id,todo_text,grade,limit_date,finish_date FROM todos WHERE finish_date!='9999-99-99'
+	</select>
+	<update id="updateTodo">
+		UPDATE todos SET finish_date=#{finishDate} WHERE id=#{id}
+	</update>
+	<delete id="deleteTodo">
+		DELETE FROM todos WHERE id=#{id}
+	</delete>
+</mapper>
