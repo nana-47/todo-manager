@@ -7,7 +7,7 @@ public class Todo {
 	/** id(主キー) */
 	private Integer id;
 	/** TODOの内容 */
-	private String todo;
+	private String todoText;
 	/** TODOの優先度 */
 	private String grade;
 	/** TODOの期日 */
@@ -23,12 +23,12 @@ public class Todo {
 		this.id = id;
 	}
 
-	public String getTodo() {
-		return todo;
+	public String getTodoText() {
+		return todoText;
 	}
 
-	public void setTodo(String todo) {
-		this.todo = todo;
+	public void setTodoText(String todoText) {
+		this.todoText = todoText;
 	}
 
 	public String getGrade() {
@@ -54,4 +54,11 @@ public class Todo {
 	public void setFinishDate(Date finishDate) {
 		this.finishDate = finishDate;
 	}
+
+	@Override
+	public String toString() {
+		return "Todo [id=" + id + ", todoText=" + todoText + ", grade=" + grade + ", limitDate=" + limitDate
+				+ ", finishDate=" + finishDate + "]";
+	}
+
 }
