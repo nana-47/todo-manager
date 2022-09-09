@@ -6,7 +6,7 @@ JavaScriptを使った動的フォーム演習のためのTODO管理アプリで
 drop table if exists todos cascade;<br>
 CREATE TABLE todos (<br>
 id SERIAL PRIMARY KEY,<br>
-todo text,<br>
+todo_text text,<br>
 grade text,<br>
 limit_date date,<br>
 finish_date date<br>
