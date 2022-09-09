@@ -23,5 +23,4 @@ finish_date date<br>
 ・優先度や期日で並べ替えができる<br>
 <br>
 【画面イメージ】<br>
-![image](https://user-images.githubusercontent.com/105257871/189093904-701098f0-de55-49d8-bba2-0b5c6d4a8459.png)
-
+![image](https://user-images.githubusercontent.com/105257871/189337723-526a12db-6914-4d58-8f05-8e0e11c6cbaf.png)
