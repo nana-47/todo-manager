@@ -74,13 +74,36 @@ function addTodoList (data) {
         const todoItem = document.createElement("li");
         		
         let beforeDate = moment(todo.limitDate, "YYYY-MM-DD");
-		let afterDate = beforeDate.format('YYYY年MM月DD日');
+		let afterDate = beforeDate.format('YYYY-MM-DD');
 
-		todoItem.innerHTML = `内容:${todo.todoText}<br>
-        					優先度：${todo.grade}<br>
-        					期限：${afterDate}<br>`;
+		todoItem.innerHTML = `内容：<input type="text" size="30" name="todoText" value=${todo.todoText}>
+            				<br>
+            				優先度：
+            				<input type="radio" name="grade" value="高い">高い
+            				<input type="radio" name="grade" value="普通" checked>普通
+            				<input type="radio" name="grade" value="低い">低い
+            				<br>
+            				期限：
+            				<input type="date" name="limitDate" value=${afterDate}>
+        					<br>`;
+
         todoContainer.appendChild(todoItem);
+        
+               	
+       	const elements = document.getElementsByName('grade');
 
+  		// 例：DBから値を取得した値をフロントに渡す
+  		const oldValue = todo.grade;
+  		console.log(oldValue);
+  		console.log("element"+elements[0].value);
+  		
+		if(elements[0].value == oldValue){
+			elements[0].checked = true;
+			elements[1].checked = false;
+			elements[2].checked = false;
+			console.log("ここ来てる");
+		} 
+        
 		/*完了ボタン要素を追加*/
 		const finishButton = document.createElement("button");
         finishButton.textContent = "完了";
@@ -91,6 +114,17 @@ function addTodoList (data) {
             finishTodo(todo.id);
         });
         todoItem.appendChild(finishButton);
+        
+        /*更新ボタン要素を追加*/
+		const changeButton = document.createElement("button");
+        changeButton.textContent = "更新";
+        changeButton.classList.add('change');
+        changeButton.setAttribute('type', 'button');
+        changeButton.addEventListener("click", function() {
+			/*更新ボタンメソッド*/
+            changeTodo(todo.id);
+        });
+        todoItem.appendChild(changeButton);
         		
         /*削除ボタン要素を追加*/
         const deleteButton = document.createElement("button");
