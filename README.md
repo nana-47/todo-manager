@@ -17,10 +17,12 @@ finish_date date<br>
 ・TODOを入力フォームから追加すると、「完了待ち一覧」に表示される<br>
 ・「完了待ち一覧」で「完了」を押すと、「完了一覧」にTODOが移動する<br>
 ・「完了待ち一覧」もしくは「完了一覧」で「削除」を押すと、TODOが消える<br>
-※基本的には非同期処理ですべて行う<br>
 ■追加機能<br>
-★「完了待ち一覧」でも内容を編集できる<br>
+・「完了待ち一覧」でも内容を編集できる<br>
 ・優先度や期日で並べ替えができる<br>
+※非同期処理ですべて行う
+<br>
 <br>
 【画面イメージ】<br>
-![image](https://user-images.githubusercontent.com/105257871/189337723-526a12db-6914-4d58-8f05-8e0e11c6cbaf.png)
+![image](https://user-images.githubusercontent.com/105257871/189603536-4998f43b-1599-4aa7-85c0-cd2d4371a688.png)
+
