@@ -7,7 +7,7 @@ drop table if exists todos cascade;<br>
 CREATE TABLE todos (<br>
 id SERIAL PRIMARY KEY,<br>
 todo_text text,<br>
-grade text,<br>
+grade integer,<br>
 limit_date date,<br>
 finish_date date<br>
 );<br>
