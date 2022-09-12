@@ -83,7 +83,7 @@ public class TodoService {
 
 		Date date = new Date();
 
-		todoMapper.updateTodo(id, date);
+		todoMapper.updateFinishDate(id, date);
 
 		List<Todo> todoList = todoMapper.findByTodo();
 		List<Todo> finishList = todoMapper.findByFinishedTodo();
@@ -91,6 +91,23 @@ public class TodoService {
 		Map<String, List<Todo>> todoMap = new HashMap<>();
 		todoMap.put("todoList", todoList);
 		todoMap.put("finishList", finishList);
+		return todoMap;
+	}
+
+	/**
+	 * 該当TODOの情報を更新する
+	 * 
+	 * @param
+	 * @return todoMap
+	 */
+	public Map<String, List<Todo>> changeTodo(Integer id, String todoText, String grade, Date limitDate) {
+
+		todoMapper.updateTodo(id, todoText, grade, limitDate);
+
+		List<Todo> todoList = todoMapper.findByTodo();
+
+		Map<String, List<Todo>> todoMap = new HashMap<>();
+		todoMap.put("todoList", todoList);
 		return todoMap;
 	}
 }

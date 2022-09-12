@@ -44,7 +44,16 @@ public interface TodoMapper {
 	 * @return
 	 * 
 	 */
-	void updateTodo(Integer id, Date finishDate);
+	void updateFinishDate(Integer id, Date finishDate);
+
+	/**
+	 * TODOの情報更新
+	 * 
+	 * @param finishDate
+	 * @return
+	 * 
+	 */
+	void updateTodo(Integer id, String todoText, String grade, Date limitDate);
 
 	/**
 	 * TODO情報の削除

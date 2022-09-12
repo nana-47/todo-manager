@@ -74,6 +74,22 @@ button.done:hover:before {
     border-right: 2px solid orange;
 }
 
+/* 更新ボタン用の設定 */
+button.change {
+    background: forestgreen;
+    border: 1px solid forestgreen;
+}
+
+button.change:hover {
+    background: #fff;
+    color: forestgreen;
+}
+
+button.change:hover:before {
+    border-top: 2px solid forestgreen;
+    border-right: 2px solid forestgreen;
+}
+
 /* 入力フォーム全体の設定 */
 .form-container {
     margin: 0px auto;

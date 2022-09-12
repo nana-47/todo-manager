@@ -93,4 +93,19 @@ public class TodoController {
 		return todoService.finishTodo(id);
 	}
 
+	/**
+	 * 
+	 * TODOの情報を更新する
+	 * 
+	 * @return JSON
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/change", method = RequestMethod.GET)
+	public Map<String, List<Todo>> changeTodo(Integer id, String todoText, String grade, String limitDate) {
+
+		Date sqlLimitDate = java.sql.Date.valueOf(limitDate);
+
+		return todoService.changeTodo(id, todoText, grade, sqlLimitDate);
+	}
+
 }

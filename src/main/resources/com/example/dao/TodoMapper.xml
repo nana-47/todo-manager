@@ -17,8 +17,11 @@
 	<select id="findByFinishedTodo" resultMap="todoResult">
 		SELECT id,todo_text,grade,limit_date,finish_date FROM todos WHERE finish_date!='9999-12-31' ORDER BY id DESC
 	</select>
-	<update id="updateTodo">
+	<update id="updateFinishDate">
 		UPDATE todos SET finish_date=#{finishDate} WHERE id=#{id}
+	</update>
+	<update id="updateTodo">
+		UPDATE todos SET todo_text=#{todoText},grade=#{grade},limit_date=#{limitDate} WHERE id=#{id}
 	</update>
 	<delete id="deleteTodo">
 		DELETE FROM todos WHERE id=#{id}

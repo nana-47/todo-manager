@@ -72,15 +72,45 @@ function addTodoList (data) {
 				
 		/*箇条書きを生成し、詳細を表示*/
         const todoItem = document.createElement("li");
-        		
-        let beforeDate = moment(todo.limitDate, "YYYY-MM-DD");
-		let afterDate = beforeDate.format('YYYY年MM月DD日');
+        
+        /*DBに保存された日時を整形*/		
+		var date = new Date(todo.limitDate);
+		date = date.toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" });
+		date=new Date(date);
+		let beforeDate = moment(date, "YYYY-MM-DD");
+		let afterDate = beforeDate.format('YYYY-MM-DD');
 
-		todoItem.innerHTML = `内容:${todo.todoText}<br>
-        					優先度：${todo.grade}<br>
-        					期限：${afterDate}<br>`;
+		todoItem.innerHTML = `
+							内容：<input type="text" size="30" id="${todo.id}TodoText" name="todoText" value=${todo.todoText}>
+            				<br>
+            				優先度：
+            				<input type="radio" name="${todo.id}grade" value="高い">高い
+            				<input type="radio" name="${todo.id}grade" value="普通">普通
+            				<input type="radio" name="${todo.id}grade" value="低い">低い
+            				<br>
+            				期限：
+            				<input type="date" id="${todo.id}LimitDate" name="limitDate" value=${afterDate}>
+        					<br>
+        					`;
+
         todoContainer.appendChild(todoItem);
-
+        
+        /*DB登録済みの優先度を初期値としてセット*/
+       	const elements = document.getElementsByName(todo.id+'grade');
+  		const oldValue = todo.grade;
+		
+		switch (oldValue){
+  			case "高い":
+    			elements[0].checked = true;
+    			break;
+  			case "普通":
+				elements[1].checked = true;
+    			break;
+    		case "低い":
+				elements[2].checked = true;
+    			break;
+    	};
+        
 		/*完了ボタン要素を追加*/
 		const finishButton = document.createElement("button");
         finishButton.textContent = "完了";
@@ -91,6 +121,17 @@ function addTodoList (data) {
             finishTodo(todo.id);
         });
         todoItem.appendChild(finishButton);
+        
+        /*更新ボタン要素を追加*/
+		const changeButton = document.createElement("button");
+        changeButton.textContent = "更新";
+        changeButton.classList.add('change');
+        changeButton.setAttribute('type', 'button');
+        changeButton.addEventListener("click", function() {
+			/*更新ボタンメソッド*/
+            changeTodo(todo.id);
+        });
+        todoItem.appendChild(changeButton);
         		
         /*削除ボタン要素を追加*/
         const deleteButton = document.createElement("button");
@@ -183,6 +224,37 @@ function finishTodo (index){
 		addTodoList(data);
 		/*完了リスト生成メソッド*/
 		finishedTodoList(data);
+	}).fail(function(XMLHttpRequest, textStatus, errorThrown) {
+		/*error時の出力*/
+		error (XMLHttpRequest, textStatus, errorThrown);
+	});
+};
+
+/*更新ボタンメソッド*/
+function changeTodo (index){
+	
+	const todoText = document.getElementById(index + 'TodoText');
+	for (const elements of document.getElementsByName(index + 'grade')) {
+		if (elements.checked) {
+			var grade = elements.value;
+			break;
+		}
+	}
+	const limitDate = document.getElementById(index + 'LimitDate');
+
+	$.ajax({
+		url: 'http://localhost:8080/todo/change',
+		dataType: 'json',
+		data: {
+			id:index,
+			todoText:todoText.value,
+			grade:grade,
+			limitDate:limitDate.value
+		},
+		async: true
+	}).done(function(data) {
+		/*完了待ちリスト生成メソッド*/
+		addTodoList(data);
 	}).fail(function(XMLHttpRequest, textStatus, errorThrown) {
 		/*error時の出力*/
 		error (XMLHttpRequest, textStatus, errorThrown);
