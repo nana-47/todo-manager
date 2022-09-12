@@ -20,16 +20,16 @@
 			ORDER BY id ASC
         </if>
         <if test="selectType == 3">
-			ORDER BY grade ASC
+			ORDER BY grade ASC,id DESC
         </if>
         <if test="selectType == 4">
-			ORDER BY grade DESC
+			ORDER BY grade DESC,id DESC
         </if>
         <if test="selectType == 5">
-			ORDER BY limit_date DESC
+			ORDER BY limit_date DESC,id DESC
         </if>
         <if test="selectType == 6">
-			ORDER BY limit_date ASC
+			ORDER BY limit_date ASC,id DESC
         </if>
 	</select>
 	<select id="findByFinishedTodo" resultMap="todoResult">
