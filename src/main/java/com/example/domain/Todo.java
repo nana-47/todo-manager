@@ -9,11 +9,13 @@ public class Todo {
 	/** TODOの内容 */
 	private String todoText;
 	/** TODOの優先度 */
-	private String grade;
+	private Integer grade;
 	/** TODOの期日 */
 	private Date limitDate;
 	/** TODOの完了日 */
 	private Date finishDate;
+	/** 並び替え用フラグ */
+	private Integer selectType;
 
 	public Integer getId() {
 		return id;
@@ -31,11 +33,11 @@ public class Todo {
 		this.todoText = todoText;
 	}
 
-	public String getGrade() {
+	public Integer getGrade() {
 		return grade;
 	}
 
-	public void setGrade(String grade) {
+	public void setGrade(Integer grade) {
 		this.grade = grade;
 	}
 
@@ -55,10 +57,18 @@ public class Todo {
 		this.finishDate = finishDate;
 	}
 
+	public Integer getSelectType() {
+		return selectType;
+	}
+
+	public void setSelectType(Integer selectType) {
+		this.selectType = selectType;
+	}
+
 	@Override
 	public String toString() {
 		return "Todo [id=" + id + ", todoText=" + todoText + ", grade=" + grade + ", limitDate=" + limitDate
-				+ ", finishDate=" + finishDate + "]";
+				+ ", finishDate=" + finishDate + ", selectType=" + selectType + "]";
 	}
 
 }

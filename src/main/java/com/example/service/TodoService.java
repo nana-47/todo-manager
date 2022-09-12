@@ -25,9 +25,9 @@ public class TodoService {
 	 * @param
 	 * @return todoMap
 	 */
-	public Map<String, List<Todo>> allTodo() {
+	public Map<String, List<Todo>> allTodo(Integer selectType) {
 
-		List<Todo> todoList = todoMapper.findByTodo();
+		List<Todo> todoList = todoMapper.findByTodo(selectType);
 		List<Todo> finishList = todoMapper.findByFinishedTodo();
 
 		Map<String, List<Todo>> todoMap = new HashMap<>();
@@ -42,11 +42,11 @@ public class TodoService {
 	 * @param todo
 	 * @return todoMap
 	 */
-	public Map<String, List<Todo>> addTodo(Todo todo) {
+	public Map<String, List<Todo>> addTodo(Todo todo, Integer selectType) {
 
 		todoMapper.insertTodo(todo);
 
-		List<Todo> todoList = todoMapper.findByTodo();
+		List<Todo> todoList = todoMapper.findByTodo(selectType);
 
 		Map<String, List<Todo>> todoMap = new HashMap<>();
 		todoMap.put("todoList", todoList);
@@ -59,11 +59,11 @@ public class TodoService {
 	 * @param
 	 * @return todoMap
 	 */
-	public Map<String, List<Todo>> deleteTodo(Integer id) {
+	public Map<String, List<Todo>> deleteTodo(Integer id, Integer selectType) {
 
 		todoMapper.deleteTodo(id);
 
-		List<Todo> todoList = todoMapper.findByTodo();
+		List<Todo> todoList = todoMapper.findByTodo(selectType);
 		List<Todo> finishList = todoMapper.findByFinishedTodo();
 
 		Map<String, List<Todo>> todoMap = new HashMap<>();
@@ -79,13 +79,13 @@ public class TodoService {
 	 * @param
 	 * @return todoMap
 	 */
-	public Map<String, List<Todo>> finishTodo(Integer id) {
+	public Map<String, List<Todo>> finishTodo(Integer id, Integer selectType) {
 
 		Date date = new Date();
 
 		todoMapper.updateFinishDate(id, date);
 
-		List<Todo> todoList = todoMapper.findByTodo();
+		List<Todo> todoList = todoMapper.findByTodo(selectType);
 		List<Todo> finishList = todoMapper.findByFinishedTodo();
 
 		Map<String, List<Todo>> todoMap = new HashMap<>();
@@ -100,11 +100,27 @@ public class TodoService {
 	 * @param
 	 * @return todoMap
 	 */
-	public Map<String, List<Todo>> changeTodo(Integer id, String todoText, String grade, Date limitDate) {
+	public Map<String, List<Todo>> changeTodo(Integer id, String todoText, Integer grade, Date limitDate,
+			Integer selectType) {
 
 		todoMapper.updateTodo(id, todoText, grade, limitDate);
 
-		List<Todo> todoList = todoMapper.findByTodo();
+		List<Todo> todoList = todoMapper.findByTodo(selectType);
+
+		Map<String, List<Todo>> todoMap = new HashMap<>();
+		todoMap.put("todoList", todoList);
+		return todoMap;
+	}
+	
+	/**
+	 * TODOの並べ替え
+	 * 
+	 * @param
+	 * @return todoMap
+	 */
+	public Map<String, List<Todo>> selectTodo(Integer selectType) {
+
+		List<Todo> todoList = todoMapper.findByTodo(selectType);
 
 		Map<String, List<Todo>> todoMap = new HashMap<>();
 		todoMap.put("todoList", todoList);

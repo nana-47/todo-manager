@@ -26,7 +26,7 @@ public interface TodoMapper {
 	 * @return todo
 	 * 
 	 */
-	List<Todo> findByTodo();
+	List<Todo> findByTodo(Integer selectType);
 
 	/**
 	 * 完了済みTODOの一覧取得
@@ -53,7 +53,7 @@ public interface TodoMapper {
 	 * @return
 	 * 
 	 */
-	void updateTodo(Integer id, String todoText, String grade, Date limitDate);
+	void updateTodo(Integer id, String todoText, Integer grade, Date limitDate);
 
 	/**
 	 * TODO情報の削除

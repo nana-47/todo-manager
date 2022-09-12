@@ -21,9 +21,9 @@
             内容：<input type="text" size="40" name="todoText">
             <br>
             優先度：
-            <input type="radio" name="grade" value="高い">高い
-            <input type="radio" name="grade" value="普通">普通
-            <input type="radio" name="grade" value="低い">低い
+            <input type="radio" name="grade" value=1>高い
+            <input type="radio" name="grade" value=2>普通
+            <input type="radio" name="grade" value=3>低い
             <br>
             期限：
             <input type="date" name="limitDate">
@@ -36,8 +36,19 @@
         <!-- 完了待ちTODO一覧 -->
         <div class="list">
             <h3>完了待ち一覧</h3>
-            <br>
+            <div class="cp_ipselect cp_sl01">
+				<select id="selector">
+  					<option value=1>追加日 降順</option>
+  					<option value=2>追加日 昇順</option>
+  					<option value=3>優先度 高い順</option>
+  					<option value=4>優先度 低い順</option>
+  					<option value=5>期限 降順</option>
+  					<option value=6>期限 昇順</option>
+				</select>
+			</div>
+			<br>
             <hr class="hr-style1">
+            
             <ul id="todoList"></ul>
         </div>
 
