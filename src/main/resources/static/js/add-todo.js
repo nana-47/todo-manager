@@ -79,9 +79,9 @@ function addTodoList (data) {
 		todoItem.innerHTML = `内容：<input type="text" size="30" name="todoText" value=${todo.todoText}>
             				<br>
             				優先度：
-            				<input type="radio" name="grade" value="高い">高い
-            				<input type="radio" name="grade" value="普通" checked>普通
-            				<input type="radio" name="grade" value="低い">低い
+            				<input type="radio" name="${todo.id}grade" value="高い">高い
+            				<input type="radio" name="${todo.id}grade" value="普通">普通
+            				<input type="radio" name="${todo.id}grade" value="低い">低い
             				<br>
             				期限：
             				<input type="date" name="limitDate" value=${afterDate}>
@@ -89,20 +89,21 @@ function addTodoList (data) {
 
         todoContainer.appendChild(todoItem);
         
-               	
-       	const elements = document.getElementsByName('grade');
-
-  		// 例：DBから値を取得した値をフロントに渡す
+        /*DB登録済みの優先度を初期値としてセット*/
+       	const elements = document.getElementsByName(todo.id+'grade');
   		const oldValue = todo.grade;
-  		console.log(oldValue);
-  		console.log("element"+elements[0].value);
-  		
-		if(elements[0].value == oldValue){
-			elements[0].checked = true;
-			elements[1].checked = false;
-			elements[2].checked = false;
-			console.log("ここ来てる");
-		} 
+		
+		switch (oldValue){
+  			case "高い":
+    			elements[0].checked = true;
+    			break;
+  			case "普通":
+				elements[1].checked = true;
+    			break;
+    		case "低い":
+				elements[2].checked = true;
+    			break;
+    	};
         
 		/*完了ボタン要素を追加*/
 		const finishButton = document.createElement("button");
