@@ -72,11 +72,16 @@ function addTodoList (data) {
 				
 		/*箇条書きを生成し、詳細を表示*/
         const todoItem = document.createElement("li");
-        		
-        let beforeDate = moment(todo.limitDate, "YYYY-MM-DD");
+        
+        /*DBに保存された日時を整形*/		
+		var date = new Date(todo.limitDate);
+		date = date.toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" });
+		date=new Date(date);
+		let beforeDate = moment(date, "YYYY-MM-DD");
 		let afterDate = beforeDate.format('YYYY-MM-DD');
 
-		todoItem.innerHTML = `内容：<input type="text" size="30" name="todoText" value=${todo.todoText}>
+		todoItem.innerHTML = `
+							内容：<input type="text" size="30" id="${todo.id}TodoText" name="todoText" value=${todo.todoText}>
             				<br>
             				優先度：
             				<input type="radio" name="${todo.id}grade" value="高い">高い
@@ -84,8 +89,9 @@ function addTodoList (data) {
             				<input type="radio" name="${todo.id}grade" value="低い">低い
             				<br>
             				期限：
-            				<input type="date" name="limitDate" value=${afterDate}>
-        					<br>`;
+            				<input type="date" id="${todo.id}LimitDate" name="limitDate" value=${afterDate}>
+        					<br>
+        					`;
 
         todoContainer.appendChild(todoItem);
         
@@ -218,6 +224,37 @@ function finishTodo (index){
 		addTodoList(data);
 		/*完了リスト生成メソッド*/
 		finishedTodoList(data);
+	}).fail(function(XMLHttpRequest, textStatus, errorThrown) {
+		/*error時の出力*/
+		error (XMLHttpRequest, textStatus, errorThrown);
+	});
+};
+
+/*更新ボタンメソッド*/
+function changeTodo (index){
+	
+	const todoText = document.getElementById(index + 'TodoText');
+	for (const elements of document.getElementsByName(index + 'grade')) {
+		if (elements.checked) {
+			var grade = elements.value;
+			break;
+		}
+	}
+	const limitDate = document.getElementById(index + 'LimitDate');
+
+	$.ajax({
+		url: 'http://localhost:8080/todo/change',
+		dataType: 'json',
+		data: {
+			id:index,
+			todoText:todoText.value,
+			grade:grade,
+			limitDate:limitDate.value
+		},
+		async: true
+	}).done(function(data) {
+		/*完了待ちリスト生成メソッド*/
+		addTodoList(data);
 	}).fail(function(XMLHttpRequest, textStatus, errorThrown) {
 		/*error時の出力*/
 		error (XMLHttpRequest, textStatus, errorThrown);
