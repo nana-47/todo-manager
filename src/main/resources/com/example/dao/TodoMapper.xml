@@ -12,7 +12,25 @@
 		INSERT INTO todos (todo_text,grade,limit_date,finish_date) VALUES (#{todoText},#{grade},#{limitDate},#{finishDate})
 	</insert>
 	<select id="findByTodo" resultMap="todoResult">
-		SELECT id,todo_text,grade,limit_date,finish_date FROM todos WHERE finish_date='9999-12-31' ORDER BY id DESC
+		SELECT id,todo_text,grade,limit_date,finish_date FROM todos WHERE finish_date='9999-12-31' 
+		<if test="selectType == 1">
+			ORDER BY id DESC
+        </if>
+        <if test="selectType == 2">
+			ORDER BY id ASC
+        </if>
+        <if test="selectType == 3">
+			ORDER BY grade ASC
+        </if>
+        <if test="selectType == 4">
+			ORDER BY grade DESC
+        </if>
+        <if test="selectType == 5">
+			ORDER BY limit_date DESC
+        </if>
+        <if test="selectType == 6">
+			ORDER BY limit_date ASC
+        </if>
 	</select>
 	<select id="findByFinishedTodo" resultMap="todoResult">
 		SELECT id,todo_text,grade,limit_date,finish_date FROM todos WHERE finish_date!='9999-12-31' ORDER BY id DESC

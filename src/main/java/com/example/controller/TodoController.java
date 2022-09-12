@@ -35,15 +35,14 @@ public class TodoController {
 
 	/**
 	 * 
-	 * TODOを追加する
+	 * TODOを表示する
 	 * 
 	 * @return JSON
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
-	public Map<String, List<Todo>> show() {
-
-		return todoService.allTodo();
+	public Map<String, List<Todo>> show(Integer selectType) {
+		return todoService.allTodo(selectType);
 	}
 
 	/**
@@ -54,7 +53,7 @@ public class TodoController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
-	public Map<String, List<Todo>> addTodo(String todoText, String grade, String limitDate) {
+	public Map<String, List<Todo>> addTodo(String todoText, Integer grade, String limitDate, Integer selectType) {
 
 		Todo todo = new Todo();
 		todo.setTodoText(todoText);
@@ -64,7 +63,7 @@ public class TodoController {
 		Date sqlFinishDate = java.sql.Date.valueOf("9999-12-31");
 		todo.setFinishDate(sqlFinishDate);
 
-		return todoService.addTodo(todo);
+		return todoService.addTodo(todo, selectType);
 	}
 
 	/**
@@ -75,9 +74,9 @@ public class TodoController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public Map<String, List<Todo>> deleteTodo(Integer id) {
+	public Map<String, List<Todo>> deleteTodo(Integer id, Integer selectType) {
 
-		return todoService.deleteTodo(id);
+		return todoService.deleteTodo(id, selectType);
 	}
 
 	/**
@@ -88,9 +87,9 @@ public class TodoController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/finish", method = RequestMethod.GET)
-	public Map<String, List<Todo>> finishTodo(Integer id) {
+	public Map<String, List<Todo>> finishTodo(Integer id, Integer selectType) {
 
-		return todoService.finishTodo(id);
+		return todoService.finishTodo(id, selectType);
 	}
 
 	/**
@@ -101,11 +100,25 @@ public class TodoController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/change", method = RequestMethod.GET)
-	public Map<String, List<Todo>> changeTodo(Integer id, String todoText, String grade, String limitDate) {
+	public Map<String, List<Todo>> changeTodo(Integer id, String todoText, Integer grade, String limitDate,
+			Integer selectType) {
 
 		Date sqlLimitDate = java.sql.Date.valueOf(limitDate);
 
-		return todoService.changeTodo(id, todoText, grade, sqlLimitDate);
+		return todoService.changeTodo(id, todoText, grade, sqlLimitDate, selectType);
+	}
+
+	/**
+	 * 
+	 * TODOの並べ替え
+	 * 
+	 * @return JSON
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/selectType", method = RequestMethod.GET)
+	public Map<String, List<Todo>> selectTodo(Integer selectType) {
+
+		return todoService.selectTodo(selectType);
 	}
 
 }

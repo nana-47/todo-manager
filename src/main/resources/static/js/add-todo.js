@@ -2,9 +2,13 @@
 
 /*ページ読み込み時の表示*/
 window.addEventListener('load', function(){
+	const selectType = document.getElementById('selector')
 	$.ajax({
 		url: 'http://localhost:8080/todo/show',
 		dataType: 'json',
+		data: {
+				selectType:selectType.value
+			},
 		async: true
 	}).done(function(data) {
 		/*完了待ちリスト生成メソッド*/
@@ -22,6 +26,7 @@ $(function(){
 	$(document).on('click', '#add-btn', function() {
 		
 		const form = document.forms.addForm;
+		const selectType = document.getElementById('selector')
 		
 		$.ajax({
 			url: 'http://localhost:8080/todo/add',
@@ -29,7 +34,8 @@ $(function(){
 			data: {
 				todoText:form.todoText.value,
 				grade:form.grade.value,
-				limitDate:form.limitDate.value
+				limitDate:form.limitDate.value,
+				selectType:selectType.value
 			},
 			async: true
 		}).done(function(data) {
@@ -40,6 +46,28 @@ $(function(){
 			};
 			form.limitDate.value = "";
 			
+			/*完了待ちリスト生成メソッド*/
+			addTodoList(data);
+		}).fail(function(XMLHttpRequest, textStatus, errorThrown) {
+			/*error時の出力*/
+			error (XMLHttpRequest, textStatus, errorThrown);
+		});
+	});
+});
+
+/*並べ替え切り替え時の挙動*/
+$(function(){
+	$(document).on('change', '#selector', function() {
+		
+		const selectType = document.getElementById('selector')
+		$.ajax({
+			url: 'http://localhost:8080/todo/selectType',
+			dataType: 'json',
+			data: {
+				selectType:selectType.value
+			},
+			async: true
+		}).done(function(data) {
 			/*完了待ちリスト生成メソッド*/
 			addTodoList(data);
 		}).fail(function(XMLHttpRequest, textStatus, errorThrown) {
@@ -84,9 +112,9 @@ function addTodoList (data) {
 							内容：<input type="text" size="30" id="${todo.id}TodoText" name="todoText" value=${todo.todoText}>
             				<br>
             				優先度：
-            				<input type="radio" name="${todo.id}grade" value="高い">高い
-            				<input type="radio" name="${todo.id}grade" value="普通">普通
-            				<input type="radio" name="${todo.id}grade" value="低い">低い
+            				<input type="radio" name="${todo.id}grade" value=1>高い
+            				<input type="radio" name="${todo.id}grade" value=2>普通
+            				<input type="radio" name="${todo.id}grade" value=3>低い
             				<br>
             				期限：
             				<input type="date" id="${todo.id}LimitDate" name="limitDate" value=${afterDate}>
@@ -100,13 +128,13 @@ function addTodoList (data) {
   		const oldValue = todo.grade;
 		
 		switch (oldValue){
-  			case "高い":
+  			case 1:
     			elements[0].checked = true;
     			break;
-  			case "普通":
+  			case 2:
 				elements[1].checked = true;
     			break;
-    		case "低い":
+    		case 3:
 				elements[2].checked = true;
     			break;
     	};
@@ -165,9 +193,13 @@ function finishedTodoList (data) {
 				
 		/*箇条書きを生成し、詳細を表示*/
         const finishItem = document.createElement("li");
-        		
-        let beforeDate = moment(finish.finishDate, "YYYY-MM-DD");
-		let afterDate = beforeDate.format('YYYY年MM月DD日');
+        
+        /*DBに保存された日時を整形*/		
+		var date = new Date(finish.finishDate);
+		date = date.toLocaleString("ja-JP", { timeZone: "Asia/Tokyo" });
+		date=new Date(date);
+		let beforeDate = moment(date, "YYYY-MM-DD");
+		let afterDate = beforeDate.format('YYYY年MM月DD日');		
 
 		finishItem.innerHTML = `内容:${finish.todoText}<br>
         					完了日：${afterDate}<br>`;
@@ -192,11 +224,14 @@ function finishedTodoList (data) {
 
 /*削除ボタンメソッド*/
 function deleteTodo (index){
+	
+	const selectType = document.getElementById('selector')
 	$.ajax({
 		url: 'http://localhost:8080/todo/delete',
 		dataType: 'json',
 		data: {
-			id:index
+			id:index,
+			selectType:selectType.value
 		},
 		async: true
 	}).done(function(data) {
@@ -212,11 +247,14 @@ function deleteTodo (index){
 
 /*完了ボタンメソッド*/
 function finishTodo (index){
+	
+	const selectType = document.getElementById('selector')
 	$.ajax({
 		url: 'http://localhost:8080/todo/finish',
 		dataType: 'json',
 		data: {
-			id:index
+			id:index,
+			selectType:selectType.value
 		},
 		async: true
 	}).done(function(data) {
@@ -241,6 +279,7 @@ function changeTodo (index){
 		}
 	}
 	const limitDate = document.getElementById(index + 'LimitDate');
+	const selectType = document.getElementById('selector')
 
 	$.ajax({
 		url: 'http://localhost:8080/todo/change',
@@ -249,7 +288,8 @@ function changeTodo (index){
 			id:index,
 			todoText:todoText.value,
 			grade:grade,
-			limitDate:limitDate.value
+			limitDate:limitDate.value,
+			selectType:selectType.value
 		},
 		async: true
 	}).done(function(data) {
